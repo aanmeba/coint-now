@@ -1,10 +1,11 @@
-import "./App.css";
-import ChartComp from "./components/ChartComp";
+import CryptoContainer from "./containers/CryptoContainer";
+import HistoryContainer from "./containers/HistoryContainer";
 
 function App() {
   return (
     <>
-      <ChartComp />
+      {/* <CryptoContainer /> */}
+      <HistoryContainer />
     </>
   );
 }
