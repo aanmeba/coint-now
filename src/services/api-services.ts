@@ -32,7 +32,7 @@ export const getHistoryById = async (id: string) => {
       `${BASE_URL}/${id}/history?interval=${interval}`,
       requestGETOptions
     );
-    const data = await response.json();
+    const { data } = await response.json();
     return data; // priceUsd & time in ms in decending order
   } catch (err) {
     console.log(" ERROR --- ", err);

@@ -1,4 +1,8 @@
-import { CryptoType, GeneralisedCryptoType } from "../common/types_interfaces";
+import {
+  CryptoType,
+  GeneralisedCryptoType,
+  HistoryType,
+} from "../common/types_interfaces";
 
 export const extractLabel = (arr: GeneralisedCryptoType[], key: string) =>
   arr.map((crypto) => crypto[key]);
@@ -24,4 +28,16 @@ export const filterData = (arr: CryptoType[]) => {
     marketCap: convertToDecimal(convertToBillion(c.marketCapUsd), 2), // in billion
     volume: convertToDecimal(convertToMillion(c.volumeUsd24Hr), 2),
   })); // in million
+};
+
+export const formatDate = (date: string) =>
+  new Date(date).toLocaleString("en-AU").split(",")[0];
+
+export const getLast90Days = (arr: HistoryType[]) => arr.slice(-90);
+
+export const filterHistory = (arr: HistoryType[]) => {
+  return arr.map((el) => ({
+    price: +convertToDecimal(+el.priceUsd),
+    date: formatDate(el.date),
+  }));
 };

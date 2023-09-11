@@ -22,3 +22,18 @@ export interface GeneralisedCryptoType {
 export interface GeneralisedCryptoTypeList {
   cryptoData: GeneralisedCryptoType[];
 }
+
+export interface HistoryType {
+  priceUsd: string;
+  time: number;
+  date: string; // Date?
+}
+
+export interface GeneralisedHistoryType {
+  price: number;
+  date: string;
+}
+
+export interface GeneralisedHistoryTypeList {
+  cryptoData: GeneralisedHistoryType[];
+}
