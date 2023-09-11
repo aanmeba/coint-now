@@ -1,10 +1,10 @@
 import { CryptoType, GeneralisedCryptoType } from "../common/types_interfaces";
 
 export const extractLabel = (arr: GeneralisedCryptoType[], key: string) =>
-  arr.map((coin) => coin[key]).slice(0, 10);
+  arr.map((crypto) => crypto[key]);
 
 export const extractNumber = (arr: GeneralisedCryptoType[], key: string) =>
-  arr.map((coin) => +coin[key]).slice(0, 10);
+  arr.map((crypto) => +crypto[key]);
 
 export const convertToBillion = (str: string) => +str / Math.pow(10, 9);
 

@@ -15,3 +15,8 @@ A frontend toy project that creates data dashboard using [`Coincap`](https://doc
 - React (Vite)
 - Material-UI
 - chartJS & react-chartjs-2
+
+## Known Issues
+
+- [ ] Numbers in billion or million need `B` or `M` in the graphs
+- [ ] Bar graph needs to specify the values below 2,000

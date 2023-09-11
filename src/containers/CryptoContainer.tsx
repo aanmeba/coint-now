@@ -4,6 +4,7 @@ import { filterData } from "../helpers/helpers";
 import { GeneralisedCryptoType } from "../common/types_interfaces";
 import MarketCap from "../components/MarketCap";
 import TotalVolume from "../components/TotalVolume";
+import TopTenCrypto from "../components/TopTenCrypto";
 
 const CryptoContainer = () => {
   const initialValues = [
@@ -46,6 +47,7 @@ const CryptoContainer = () => {
         <>
           <MarketCap cryptoData={fetchData} />
           <TotalVolume cryptoData={fetchData} />
+          <TopTenCrypto cryptoData={fetchData} />
         </>
       )}
     </>
