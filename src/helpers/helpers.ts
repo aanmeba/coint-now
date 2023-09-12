@@ -1,7 +1,10 @@
 import {
   CryptoType,
   GeneralisedCryptoType,
+  GeneralisedHistoryType,
+  GeneralisedHistoryTypeObject,
   HistoryType,
+  cryptos,
 } from "../common/types_interfaces";
 
 export const extractLabel = (arr: GeneralisedCryptoType[], key: string) =>
@@ -41,3 +44,6 @@ export const filterHistory = (arr: HistoryType[]) => {
     date: formatDate(el.date),
   }));
 };
+
+// export const getLast90DaysDate = (arr: GeneralisedHistoryType[]) =>
+//   arr.map((e) => e.date);
