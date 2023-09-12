@@ -25,25 +25,30 @@ const HistoryContainer = () => {
     useState<GeneralisedHistoryTypeData>(initialObjectValue);
 
   const getHistoryData = async (crypto: string) => {
-    return await getHistoryById(crypto)
-      .then(getLast90Days)
-      .then(filterHistory)
-      .then((data) => {
-        setFetchData({ ...fetchData, [crypto]: [...data] });
-      })
-      .catch((err) => console.log("ERR ", err));
+    try {
+      const historyData = await getHistoryById(crypto);
+      const last90DaysData = getLast90Days(historyData);
+      const filteredData = filterHistory(last90DaysData);
+
+      setFetchData({
+        ...fetchData,
+        [crypto]: [...filteredData],
+      });
+      return filteredData;
+    } catch (err) {
+      console.log("ERR ", err);
+      throw err;
+    }
   };
 
   useEffect(() => {
-    Promise.all([getHistoryData(cryptos[0]), getHistoryData(cryptos[1])])
+    const fetchPromises = cryptos.map((crypto) => getHistoryData(crypto));
+    Promise.all(fetchPromises)
       .then(() => {
-        if (Object.values(fetchData).every((d) => d.length > 1)) {
-          setFetchStatus(true);
-          console.log(fetchData, " *^*^*^*^*^*^*^*^");
-        }
+        setFetchStatus(true);
       })
       .catch((err) => console.log(err, " !!!! "));
-  }, [fetchStatus]);
+  }, []);
 
   return (
     <Grid item sx={{ width: "100%" }}>

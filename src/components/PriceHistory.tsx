@@ -3,7 +3,7 @@ import {
   // GeneralisedHistoryTypeList,
   GeneralisedHistoryTypeObject,
   HistoryCryptoKeys,
-  cryptos,
+  // cryptos,
 } from "../common/types_interfaces";
 import { useEffect, useState } from "react";
 import { Chart, ChartData, registerables } from "chart.js";
@@ -13,10 +13,7 @@ Chart.register(...registerables);
 
 const PriceHistory = ({ cryptoData }: GeneralisedHistoryTypeObject) => {
   const [result, setResult] = useState<ChartData<"line">>({ datasets: [] });
-  // const configDataSet = {
-  //   label: "Price Tracker",
-  //   fill: false,
-  // };
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   console.log("cryptoData ---- ", cryptoData);
 
@@ -26,37 +23,44 @@ const PriceHistory = ({ cryptoData }: GeneralisedHistoryTypeObject) => {
 
   useEffect(() => {
     try {
-      cryptos.forEach((crypto, i) => {
-        console.log(crypto, " ** crypto");
+      Object.keys(cryptoData).forEach((crypto, i) => {
         const newDataset = {
           label: crypto,
           data: dataInDatasets(crypto as HistoryCryptoKeys),
-          yAxisID: `y${i}`,
+          // yAxisID: `y${i}`,
         };
 
-        const newDatasets = [...result.datasets, newDataset];
-        setResult({
+        const newDatasets =
+          result.datasets.filter((dataset) => dataset.label === crypto)
+            .length === 0
+            ? [...result.datasets, newDataset]
+            : [...result.datasets];
+
+        setResult((prev) => ({
+          ...prev,
           labels: labels(crypto as HistoryCryptoKeys),
-          datasets: newDatasets,
-        });
-        // setResult({
-        //   labels: labels(crypto as HistoryCryptoKeys),
-        //   datasets: [
-        //     ...result.datasets,
-        //     {
-        //       label: crypto,
-        //       data: dataInDatasets(crypto as HistoryCryptoKeys),
-        //       yAxisID: `y${i}`,
-        //     },
-        //   ],
-        // });
+          datasets: [...prev.datasets, ...newDatasets],
+        }));
+        setIsLoading(false);
       });
+      console.log(result, " ---- result ");
+
+      // setResult({
+      //   labels: labels(crypto as HistoryCryptoKeys),
+      //   datasets: [
+      //     ...result.datasets,
+      //     {
+      //       label: crypto,
+      //       data: dataInDatasets(crypto as HistoryCryptoKeys),
+      //       yAxisID: `y${i}`,
+      //     },
+      //   ],
+      // });
     } catch (err) {
       console.log("Caught error", err);
     }
   }, []);
 
-  console.log(result, " ---- result ");
   // const config = {
   //   type: "line",
   //   data: data,
@@ -94,9 +98,13 @@ const PriceHistory = ({ cryptoData }: GeneralisedHistoryTypeObject) => {
   // };
 
   return (
-    <ChartWrapper title="Price Tracker" variant="h5">
-      <Line data={result} />
-    </ChartWrapper>
+    <>
+      {!isLoading && (
+        <ChartWrapper title="Price Tracker" variant="h5">
+          <Line data={result} />
+        </ChartWrapper>
+      )}
+    </>
   );
 };
 
