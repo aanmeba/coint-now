@@ -1,9 +1,11 @@
-import "./App.css";
+import CryptoContainer from "./containers/CryptoContainer";
+import HistoryContainer from "./containers/HistoryContainer";
 
 function App() {
   return (
     <>
-      <h1>hello world</h1>
+      {/* <CryptoContainer /> */}
+      <HistoryContainer />
     </>
   );
 }
