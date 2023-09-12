@@ -4,6 +4,7 @@ import { Doughnut } from "react-chartjs-2";
 import { useEffect, useState } from "react";
 import { extractLabel, extractNumber } from "../helpers/helpers";
 import { GeneralisedCryptoTypeList } from "../common/types_interfaces";
+import ChartWrapper from "./ChartWrapper";
 
 Chart.register(...registerables);
 
@@ -29,9 +30,9 @@ const MarketCap = ({ cryptoData }: GeneralisedCryptoTypeList) => {
   }, []);
 
   return (
-    <>
+    <ChartWrapper title="Market Cap" variant="h5">
       <Doughnut data={result} />
-    </>
+    </ChartWrapper>
   );
 };
 

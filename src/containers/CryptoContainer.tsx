@@ -5,6 +5,7 @@ import { GeneralisedCryptoType } from "../common/types_interfaces";
 import MarketCap from "../components/MarketCap";
 import TotalVolume from "../components/TotalVolume";
 import TopTenCrypto from "../components/TopTenCrypto";
+import { Grid } from "@mui/material";
 
 const CryptoContainer = () => {
   const initialValues = [
@@ -45,9 +46,18 @@ const CryptoContainer = () => {
     <>
       {fetchStatus && (
         <>
-          <MarketCap cryptoData={fetchData} />
-          <TotalVolume cryptoData={fetchData} />
-          <TopTenCrypto cryptoData={fetchData} />
+          <Grid item>
+            <TopTenCrypto cryptoData={fetchData} />
+          </Grid>
+          <Grid item>
+            <MarketCap cryptoData={fetchData} />
+          </Grid>
+          <Grid item>
+            <TotalVolume cryptoData={fetchData} />
+          </Grid>
+          {/* <Grid item>
+            <PriceHistory cryptoData={fetchData} />
+          </Grid> */}
         </>
       )}
     </>
